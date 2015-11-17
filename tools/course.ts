@@ -101,13 +101,40 @@ namespace course {
 		};
 	}
 	
+	export interface ListParam {
+		/**
+		 * 一级类目
+		 */
+		mt: number
+		/**
+		 * 二级类目
+		 */
+		tt?: number
+		/**
+		 * 三级类目
+		 */
+		st?: number
+		/**
+		 * 每页条数，默认10
+		 */
+		count?: number
+		/**
+		 * 页数，默认1
+		 */
+		page?: number
+		/**
+		 * 排序方式
+		 */
+		sort?: number
+	}
+	
 	
 	/**
 	* 获取课程列表
 	*/
-	export function list(mt: number, tt: number, st: number, req: http.ServerRequest): Promise<Course[]> {
+	export function list(param: ListParam, req: http.ServerRequest): Promise<Course[]> {
 		var promise = new Promise(function (resolve, reject) {
-			 const arr = [
+			const arr = [
 				`mt=1001`
 			];
 			request({
