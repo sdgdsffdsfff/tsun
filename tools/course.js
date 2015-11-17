@@ -1,4 +1,4 @@
-var request = require('request');
+import * as request from 'request';
 var course;
 (function (course) {
     function couseFormat(data) {
@@ -24,7 +24,7 @@ var course;
     /**
     * 获取课程列表
     */
-    function list(mt, tt, st, req) {
+    function list(param, req) {
         var promise = new Promise(function (resolve, reject) {
             const arr = [
                 `mt=1001`
@@ -48,4 +48,4 @@ var course;
     }
     course.list = list;
 })(course || (course = {}));
-exports.default = course;
+export default course;

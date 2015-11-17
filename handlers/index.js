@@ -1,6 +1,7 @@
-var Course = require('../tools/course');
+import Course from '../tools/course';
+
 const handler = function (request, reply) {
-    Course.default.list(1, 2, 3, request)
+    Course.list({ mt: 1001 }, request)
         .then(function (courselist) {
             reply.view('index', {
                 list: courselist
