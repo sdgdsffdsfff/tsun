@@ -1,0 +1,19 @@
+{
+  "name": "tsun",
+  "version": "0.0.1",
+  "description": "node server",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bluebird": "^2.10.2",
+    "ejs": "^2.3.4",
+    "handlebars": "^4.0.4",
+    "hapi": "^11.1.1",
+    "request": "^2.65.0",
+    "vision": "^4.0.1"
+  }
+}

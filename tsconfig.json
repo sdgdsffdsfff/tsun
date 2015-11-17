@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "declaration": true,
+        "module": "commonjs"
+    },
+    "filesGlob": [
+        "tools/**.ts"
+    ]
+}
