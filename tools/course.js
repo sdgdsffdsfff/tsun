@@ -26,9 +26,10 @@ var course;
     */
     function list(param, req) {
         var promise = new Promise(function (resolve, reject) {
-            const arr = [
-                `mt=1001`
-            ];
+            let arr = [];
+            Object.keys(param).forEach(function (key) {
+                arr.push(`${key}=${param[key]}`);
+            });
             request({
                 url: `http://m.ke.qq.com/cgi-bin/pubAccount/courseList?is_ios=0&count=10&page=1&pay_type=0&priority=1&${arr.join('&')}`,
                 headers: {
