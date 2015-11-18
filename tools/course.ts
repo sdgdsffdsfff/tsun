@@ -8,11 +8,11 @@ export interface Room {
 	/**
 	* id
 	*/
-	id: number
+	id: number;
 	/**
 	* 地址
 	*/
-	url: string
+	url: string;
 }
 
 /**
@@ -22,19 +22,19 @@ export interface Agency {
 	/**
 	* id
 	*/
-	id: number
+	id: number;
 	/**
 	* 名字
 	*/
-	name: string
+	name: string;
 	/**
 	* 域名
 	*/
-	domain: string
+	domain: string;
 	/**
 	* 封面地址
 	*/
-	cover: string
+	cover: string;
 }
 	
 /**
@@ -44,35 +44,35 @@ export interface Course {
 	/**
 	* id 
 	*/ 
-	id: number
+	id: number;
 	/**
 	* 名称
 	*/
-	name: string
+	name: string;
 	/**
 	* 封面地址
 	*/
-	cover: string
+	cover: string;
 	/**
 	* 开始时间
 	*/
-	startTime: number
+	startTime: number;
 	/**
 	* 结束时间
 	*/
-	endTime: number
+	endTime: number;
 	/**
 	* 费用
 	*/
-	price: number
+	price: number;
 	/**
 	* 机构信息
 	*/
-	agency: Agency
+	agency: Agency;
 	/**
 	* 房间信息
 	*/
-	room: Room
+	room: Room;
 }
 
 namespace course {
@@ -106,28 +106,32 @@ namespace course {
 		/**
 		* 一级类目
 		*/
-		mt: number
+		mt?: number,
 		/**
 		* 二级类目
 		*/
-		tt?: number
+		tt?: number,
 		/**
 		* 三级类目
 		*/
-		st?: number
+		st?: number,
 		/**
 		* 每页条数，默认10
 		*/
-		count?: number
+		count?: number,
 		/**
 		* 页数，默认1
 		*/
-		page?: number
+		page?: number,
 		/**
 		* 排序方式
 		*/
 		sort?: number
 	}, req: http.ServerRequest): Promise<Course[]> {
+		
+		param.count || (param.count = 10);
+		param.page || (param.page = 1);
+		
 		var promise = new Promise(function (resolve, reject) {
 			let arr: string[] = [];
 			Object.keys(param).forEach(function (key) {

@@ -4,3 +4,4 @@
 /// <reference path="form-data/form-data.d.ts" />
 /// <reference path="request/request.d.ts" />
 /// <reference path="ejs/ejs.d.ts" />
+/// <reference path="es6-promise/es6-promise.d.ts" />

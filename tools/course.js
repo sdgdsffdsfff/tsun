@@ -1,4 +1,4 @@
-import * as request from 'request';
+var request = require('request');
 var course;
 (function (course) {
     function couseFormat(data) {
@@ -26,12 +26,12 @@ var course;
     */
     function list(param, req) {
         var promise = new Promise(function (resolve, reject) {
-            let arr = [];
+            var arr = [];
             Object.keys(param).forEach(function (key) {
-                arr.push(`${key}=${param[key]}`);
+                arr.push(key + "=" + param[key]);
             });
             request({
-                url: `http://m.ke.qq.com/cgi-bin/pubAccount/courseList?is_ios=0&count=10&page=1&pay_type=0&priority=1&${arr.join('&')}`,
+                url: "http://m.ke.qq.com/cgi-bin/pubAccount/courseList?is_ios=0&count=10&page=1&pay_type=0&priority=1&" + arr.join('&'),
                 headers: {
                     'Referer': 'http://m.ke.qq.com',
                     'Cookie': req.headers['Cookie']
@@ -41,7 +41,7 @@ var course;
                     resolve(JSON.parse(body).result.list.map(couseFormat));
                 }
                 else {
-                    reject(err || new Error(`statusCode is ${res.statusCode}`));
+                    reject(err || new Error("statusCode is " + res.statusCode));
                 }
             });
         });
@@ -49,4 +49,5 @@ var course;
     }
     course.list = list;
 })(course || (course = {}));
-export default course;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = course;
