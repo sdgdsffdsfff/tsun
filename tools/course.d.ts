@@ -78,7 +78,7 @@ declare namespace course {
         /**
         * 一级类目
         */
-        mt: number;
+        mt?: number;
         /**
         * 二级类目
         */

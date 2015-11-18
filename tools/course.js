@@ -25,6 +25,8 @@ var course;
     * 获取课程列表
     */
     function list(param, req) {
+        param.count || (param.count = 10);
+        param.page || (param.page = 1);
         var promise = new Promise(function (resolve, reject) {
             var arr = [];
             Object.keys(param).forEach(function (key) {
