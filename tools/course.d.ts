@@ -70,36 +70,35 @@ export interface Course {
     */
     room: Room;
 }
-export interface ListParam {
-    /**
-    * 一级类目
-    */
-    mt: number;
-    /**
-    * 二级类目
-    */
-    tt?: number;
-    /**
-    * 三级类目
-    */
-    st?: number;
-    /**
-    * 每页条数，默认10
-    */
-    count?: number;
-    /**
-    * 页数，默认1
-    */
-    page?: number;
-    /**
-    * 排序方式
-    */
-    sort?: number;
-}
 declare namespace course {
     /**
     * 获取课程列表
     */
-    function list(param: ListParam, req: http.ServerRequest): Promise<Course[]>;
+    function list(param: {
+        /**
+        * 一级类目
+        */
+        mt: number;
+        /**
+        * 二级类目
+        */
+        tt?: number;
+        /**
+        * 三级类目
+        */
+        st?: number;
+        /**
+        * 每页条数，默认10
+        */
+        count?: number;
+        /**
+        * 页数，默认1
+        */
+        page?: number;
+        /**
+        * 排序方式
+        */
+        sort?: number;
+    }, req: http.ServerRequest): Promise<Course[]>;
 }
 export default course;

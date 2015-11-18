@@ -75,33 +75,6 @@ export interface Course {
 	room: Room
 }
 
-export interface ListParam {
-	/**
-	* 一级类目
-	*/
-	mt: number
-	/**
-	* 二级类目
-	*/
-	tt?: number
-	/**
-	* 三级类目
-	*/
-	st?: number
-	/**
-	* 每页条数，默认10
-	*/
-	count?: number
-	/**
-	* 页数，默认1
-	*/
-	page?: number
-	/**
-	* 排序方式
-	*/
-	sort?: number
-}
-
 namespace course {
 	
 	function couseFormat(data: any): Course {
@@ -129,7 +102,32 @@ namespace course {
 	/**
 	* 获取课程列表
 	*/
-	export function list(param: ListParam, req: http.ServerRequest): Promise<Course[]> {
+	export function list(param: {
+		/**
+		* 一级类目
+		*/
+		mt: number
+		/**
+		* 二级类目
+		*/
+		tt?: number
+		/**
+		* 三级类目
+		*/
+		st?: number
+		/**
+		* 每页条数，默认10
+		*/
+		count?: number
+		/**
+		* 页数，默认1
+		*/
+		page?: number
+		/**
+		* 排序方式
+		*/
+		sort?: number
+	}, req: http.ServerRequest): Promise<Course[]> {
 		var promise = new Promise(function (resolve, reject) {
 			const arr = [
 				`mt=1001`
