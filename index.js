@@ -13,7 +13,15 @@ function main() {
             engines: { ejs: require('ejs') },
             path: __dirname + '/templates'
         });
-        server.route({ method: 'GET', path: '/', handler: require('./handlers/index') });
+        server.route({ method: 'GET', 
+            path: '/', 
+            handler: require('./handlers/index'),
+            config: {
+                cache: {
+                    expiresIn: 300 * 1000
+                }
+            } 
+        });
         server.start((err) => {
             if (err) {
                 throw err;
