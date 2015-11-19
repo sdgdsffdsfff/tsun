@@ -1,4 +1,5 @@
 var request = require('request');
+var L5 = require('../modules/L5/l5');
 var course;
 (function (course) {
     function couseFormat(data) {
@@ -21,7 +22,7 @@ var course;
             }
         };
     }
-    /**
+    /** 
     * 获取课程列表
     */
     function list(param, req) {
@@ -32,20 +33,42 @@ var course;
             Object.keys(param).forEach(function (key) {
                 arr.push(key + "=" + param[key]);
             });
-            request({
-                url: "http://m.ke.qq.com/cgi-bin/pubAccount/courseList?is_ios=0&count=10&page=1&pay_type=0&priority=1&" + arr.join('&'),
-                headers: {
-                    'Referer': 'http://m.ke.qq.com',
-                    'Cookie': req.headers['Cookie']
+            var listReuest = L5.create(req);
+            listReuest.request({
+                url: 'http://m.ke.qq.com/cgi-bin/pubAccount/courseList',
+                type: 'GET',
+                withCookie: true,
+                referer: 'http://m.ke.qq.com/courseList.html',
+                data: data,
+                l5api: {
+                    modid: 432385,
+                    cmd: 131072
                 }
-            }, function (err, res, body) {
-                if (!err && res.statusCode === 200) {
-                    resolve(JSON.parse(body).result.list.map(couseFormat));
+            }).then(function (d) {
+                if(d.result.retcode !=0) {
+                    dataList = [];
+                }else{
+                    // 容错
+                    dataList = d.result.result.list || [];
                 }
-                else {
+                resolve(dataList.map(couseFormat));
+            }, function (d) {
                     reject(err || new Error("statusCode is " + res.statusCode));
-                }
             });
+            //request({
+            //    url: "http://m.ke.qq.com/cgi-bin/pubAccount/courseList?is_ios=0&count=10&page=1&pay_type=0&priority=1&" + arr.join('&'),
+            //    headers: {
+            //        'Referer': 'http://m.ke.qq.com',
+            //        'Cookie': req.headers['Cookie']
+            //    }
+            //}, function (err, res, body) {
+            //    if (!err && res.statusCode === 200) {
+            //        resolve(JSON.parse(body).result.list.map(couseFormat));
+            //    }
+            //    else {
+            //        reject(err || new Error("statusCode is " + res.statusCode));
+            //    }
+            //});
         });
         return promise;
     }
