@@ -1,0 +1,8 @@
+{
+  "name"          : "Deferred",
+  "version"       : "1.7",
+  "description"   : "jq Deferred",
+  "engines"       : {"node": ">= 0.6.0"},
+  "dependencies"  : [],
+  "main"          : "./lib/Deferred.js"
+}
