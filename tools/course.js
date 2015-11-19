@@ -1,5 +1,5 @@
 var request = require('request');
-var L5 = require('../modules/L5/l5');
+var L5 = require('../modules/L5/L5');
 var course;
 (function (course) {
     function couseFormat(data) {
@@ -22,7 +22,7 @@ var course;
             }
         };
     }
-    /** 
+    /**
     * 获取课程列表
     */
     function list(param, req) {
@@ -30,12 +30,21 @@ var course;
         param.page || (param.page = 1);
         var promise = new Promise(function (resolve, reject) {
             var arr = [];
+            var data = {
+                is_ios: 0,
+                count: 10,
+                pay_type: 0,
+                page: 1,
+                priority: 1,
+                sort: ''
+            };
             Object.keys(param).forEach(function (key) {
                 arr.push(key + "=" + param[key]);
             });
-            var listReuest = L5.create(req);
-            listReuest.request({
-                url: 'http://m.ke.qq.com/cgi-bin/pubAccount/courseList',
+
+            var listRequest = L5.create(req);
+            listRequest.request({
+                url: "http://m.ke.qq.com/cgi-bin/pubAccount/courseList",
                 type: 'GET',
                 withCookie: true,
                 referer: 'http://m.ke.qq.com/courseList.html',
@@ -53,7 +62,7 @@ var course;
                 }
                 resolve(dataList.map(couseFormat));
             }, function (d) {
-                    reject(err || new Error("statusCode is " + res.statusCode));
+                reject(err || new Error("statusCode is " + res.statusCode));
             });
             //request({
             //    url: "http://m.ke.qq.com/cgi-bin/pubAccount/courseList?is_ios=0&count=10&page=1&pay_type=0&priority=1&" + arr.join('&'),

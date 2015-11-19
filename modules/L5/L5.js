@@ -5,14 +5,13 @@
  * @author coverguo
  *
  */
-var //Promise = require('promise'),
+var Promise = require('./lib/promise'),
     _ = require('lodash'),
     http = require('http'),
     url = require('url'),
     Cookie = require('./lib/Cookie/cookie'),
     zlib = require('zlib'), //压缩
-    L5 = require('./L5.api.js'),
-    undefined;
+    L5 = require('./L5.api.js');
 
 function createPromise() {
     var args;
@@ -166,7 +165,7 @@ Loader.prototype.l5Request = function(opt) {
             hasError: true,
             msg: 'L5 get error! ' + d.ret,
             response: null,
-            toIp: "127.0.0.1",
+            toIp: "127.0.0.1"
         });
 
         opt.error && defer.fail(opt.error);
@@ -179,6 +178,9 @@ Loader.prototype.l5Request = function(opt) {
 //普通请求
 Loader.prototype.doRequest = function(opt) {
     var self = this;
+
+    try{
+
 
     var defer = createPromise(),
         that = this,
@@ -209,7 +211,6 @@ Loader.prototype.doRequest = function(opt) {
         autoToken: true, //自动带token
         enctype: 'application/x-www-form-urlencoded', //multipart/form-data
     }, opt);
-
 
     opt.type = opt.type.toUpperCase();
 
@@ -681,7 +682,9 @@ Loader.prototype.doRequest = function(opt) {
     }
 
     return defer;
-
+    }catch(e){
+        console.log(e);
+    }
 };
 
 Loader.prototype.all = function(datas) {
